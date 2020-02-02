@@ -24,9 +24,11 @@ const getData = async (baseUrl, application_id, application_key) => {
 const postData = async (url = '', data ={}) => {
     try {
         const response = await fetch (url, {
-            method: 'CORS',
+            method: 'POST',
+            mode: 'cors',
             credentials: 'same-origin',
             headers: {
+                'Content-Type': 'application/json',
                 'X-AYLIEN-TextAPI-Application-Key': application_key,
                 'X-AYLIEN-TextAPI-Application-ID': application_id
             },
