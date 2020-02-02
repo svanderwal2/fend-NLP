@@ -12,10 +12,6 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "headers": {
-    "X-AYLIEN-TextAPI-Application-Key": "process.env.API_KEY",
-    "X-AYLIEN-TextAPI-Application-ID": "process.env.API_ID"
-  },
   "dependencies": {
     "aylien_textapi": "^0.7.0",
     "cors": "^2.8.5",

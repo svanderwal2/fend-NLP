@@ -8,14 +8,55 @@ var textapi = new AYLIENTextAPI({
   application_key: "process.env.API_KEY"
 });
 
+// GET Request
+const getData = async (baseUrl, application_id, application_key) => {
+    try {
+        const res = await fetch (baseUrl + application_id + application_key)
+        const data = await res.json();
+        console.log(data)
+        return data;
+    } catch (error) {
+        console.log('error', error);
+    }
+};
+
+// POST Request 
+const postData = async (url = '', data ={}) => {
+    try {
+        const response = await fetch (url, {
+            method: 'CORS',
+            credentials: 'same-origin',
+            headers: {
+                'X-AYLIEN-TextAPI-Application-Key': application_key,
+                'X-AYLIEN-TextAPI-Application-ID': application_id
+            },
+            body: JSON.stringify(data)
+        });
+        return(response);
+    } catch(error) {
+        console.log('error', error);
+    }
+};
+
+// Update UI
+const updateUI = async() => {
+    const request = await fetch('/all');
+    try {
+        const allData = await request.json();
+        const evaluation = document.getElementById('results').innerHTML = allData.polarity;
+        console.log(allData);
+    } catch(error) {
+        console.log('error', error);
+    }
+};
+
+// Handle Submit Function
+document.getElementById('generate').addEventListener('click', handleSubmit);
+
 function handleSubmit(event) {
     event.preventDefault()
-
-    // check what text was put into the form field
     let formText = document.getElementById('name').value
-    // Client.checkForName(formText)
-
-    // Sentiment Analysis Call
+    
     textapi.sentiment({formText}, 
         function(error, response) {
         if (error === null) {
